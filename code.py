@@ -60,3 +60,24 @@ def calculate_avg_mass_by_species_sex(data):
             key = (sp, sx)
             sums[key] = sums.get(key, 0.0) + mass
             counts[key] = counts.get(key, 0) + 1
+    out = {}
+    for key in sums:
+        out[key] = sums[key] / counts[key]
+    return out
+
+def calculate_bill_ratio_by_species(data):
+    sums = {}
+    counts = {}
+    for row in data:
+        sp = row.get("species")
+        bl = row.get("bill_length_mm")
+        bd = row.get("bill_depth_mm")
+        if isinstance(sp, str) and isinstance(bl, float) and isinstance(bd, float) and bd != 0.0:
+            ratio = bl / bd
+            sums[sp] = sums.get(sp, 0.0) + ratio
+            counts[sp] = counts.get(sp, 0) + 1
+
+    out = {}
+    for sp in sums:
+        out[sp] = sums[sp] / counts[sp]
+    return out
