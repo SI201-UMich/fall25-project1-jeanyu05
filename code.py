@@ -152,4 +152,29 @@ d2 = d1 + [
     r4 = calculate_bill_ratio_by_species(d4)
     assert r4 == {}
 
+def main():
+   
+    input_csv = "penguins.csv"
+    data = read_penguin_data(input_csv)
+
+   
+    avg_mass = calculate_avg_mass_by_species_sex(data)
+    ratios = calculate_bill_ratio_by_species(data)
+
+    
+    write_avg_mass_csv("avg_mass_by_species_sex.csv", avg_mass)
+    write_bill_ratio_csv("avg_bill_ratio_by_species.csv", ratios)
+
+if __name__ == "__main__":
+   
+    test_calculate_avg_mass_by_species_sex()
+    test_calculate_bill_ratio_by_species()
+
+
+    try:
+        main()
+        print("Wrote: avg_mass_by_species_sex.csv, avg_bill_ratio_by_species.csv")
+    except FileNotFoundError:
+        print("Error: penguins.csv not found. Put it next to this script or change the path.")
+
 
