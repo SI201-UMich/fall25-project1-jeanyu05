@@ -174,7 +174,7 @@ if __name__ == "__main__":
     try:
         main()
         print("Wrote: avg_mass_by_species_sex.csv, avg_bill_ratio_by_species.csv")
-    except FileNotFoundError:
+    except:
         print("Error: penguins.csv not found. Put it next to this script or change the path.")
 
 
