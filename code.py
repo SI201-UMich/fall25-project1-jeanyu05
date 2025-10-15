@@ -1,8 +1,8 @@
 """
 Project 1: Data Analysis — Penguins
-Author: [Your Name Here]
-Student ID: [Your ID]
-Email: [Your Email]
+Author: Jean Yu
+Student ID: 90875912
+Email: jeanyu@Umich.edu
 Collaborators: [List classmates and/or GenAI; specify who wrote which functions]
 GenAI usage: Code generated with assistance from ChatGPT (GPT-5 Thinking). I verified outputs and added tests.
 
@@ -81,3 +81,40 @@ def calculate_bill_ratio_by_species(data):
     for sp in sums:
         out[sp] = sums[sp] / counts[sp]
     return out
+
+def write_avg_mass_csv(filename, results):
+    with open(filename, "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["species", "sex", "avg_body_mass_g"])
+        for (sp, sx) in sorted(results.keys()):
+            w.writerow([sp, sx, round(results[(sp, sx)], 2)])
+
+def write_bill_ratio_csv(filename, results):
+    with open(filename, "w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["species", "avg_bill_length_depth_ratio"])
+        for sp in sorted(results.keys()):
+            w.writerow([sp, round(results[sp], 4)])
+    
+def test_calculate_avg_mass_by_species_sex():
+    d1 = [
+        {"species":"adelie","sex":"male","body_mass_g":4000.0},
+        {"species":"adelie","sex":"male","body_mass_g":4200.0},
+        {"species":"adelie","sex":"female","body_mass_g":3400.0},
+        {"species":"adelie","sex":"female","body_mass_g":3600.0},
+    ]
+    r1 = calculate_avg_mass_by_species_sex(d1)
+    assert abs(r1[("adelie","male")] - 4100.0) < 1e-6
+    assert abs(r1[("adelie","female")] - 3500.0) < 1e-6
+ d2 = d1 + [
+        {"species":"gentoo","sex":"male","body_mass_g":5000.0},
+        {"species":"gentoo","sex":"male","body_mass_g":5200.0},
+    ]
+    r2 = calculate_avg_mass_by_species_sex(d2)
+    assert abs(r2[("gentoo","male")] - 5100.0) < 1e-6
+ d3 = [
+        {"species":"adelie","sex":"male","body_mass_g":None},
+        {"species":"adelie","sex":"male","body_mass_g":4200.0},
+    ]
+    r3 = calculate_avg_mass_by_species_sex(d3)
+    assert abs(r3[("adelie","male")] - 4200.0) < 1e-6
