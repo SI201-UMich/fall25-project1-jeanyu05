@@ -106,20 +106,20 @@ def test_calculate_avg_mass_by_species_sex():
     r1 = calculate_avg_mass_by_species_sex(d1)
     assert abs(r1[("adelie","male")] - 4100.0) < 1e-6
     assert abs(r1[("adelie","female")] - 3500.0) < 1e-6
- d2 = d1 + [
+    d2 = d1 + [
         {"species":"gentoo","sex":"male","body_mass_g":5000.0},
         {"species":"gentoo","sex":"male","body_mass_g":5200.0},
     ]
     r2 = calculate_avg_mass_by_species_sex(d2)
     assert abs(r2[("gentoo","male")] - 5100.0) < 1e-6
- d3 = [
+    d3 = [
         {"species":"adelie","sex":"male","body_mass_g":None},
         {"species":"adelie","sex":"male","body_mass_g":4200.0},
     ]
     r3 = calculate_avg_mass_by_species_sex(d3)
     assert abs(r3[("adelie","male")] - 4200.0) < 1e-6
 
-d4 = [
+    d4 = [
         {"species":None,"sex":"male","body_mass_g":4000.0},
         {"species":"adelie","sex":None,"body_mass_g":4200.0},
     ]
@@ -135,7 +135,7 @@ def test_calculate_bill_ratio_by_species():
     r1 = calculate_bill_ratio_by_species(d1)
     assert abs(r1["adelie"] - 2.0) < 1e-6
 
-d2 = d1 + [
+    d2 = d1 + [
         {"species":"gentoo","bill_length_mm":48.0,"bill_depth_mm":16.0}, # 3.0
         {"species":"gentoo","bill_length_mm":45.0,"bill_depth_mm":15.0}, # 3.0
     ]
