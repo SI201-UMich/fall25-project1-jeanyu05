@@ -118,3 +118,38 @@ def test_calculate_avg_mass_by_species_sex():
     ]
     r3 = calculate_avg_mass_by_species_sex(d3)
     assert abs(r3[("adelie","male")] - 4200.0) < 1e-6
+
+d4 = [
+        {"species":None,"sex":"male","body_mass_g":4000.0},
+        {"species":"adelie","sex":None,"body_mass_g":4200.0},
+    ]
+    r4 = calculate_avg_mass_by_species_sex(d4)
+    assert r4 == {}
+
+def test_calculate_bill_ratio_by_species():
+
+    d1 = [
+        {"species":"adelie","bill_length_mm":40.0,"bill_depth_mm":20.0}, # 2.0
+        {"species":"adelie","bill_length_mm":42.0,"bill_depth_mm":21.0}, # 2.0
+    ]
+    r1 = calculate_bill_ratio_by_species(d1)
+    assert abs(r1["adelie"] - 2.0) < 1e-6
+
+d2 = d1 + [
+        {"species":"gentoo","bill_length_mm":48.0,"bill_depth_mm":16.0}, # 3.0
+        {"species":"gentoo","bill_length_mm":45.0,"bill_depth_mm":15.0}, # 3.0
+    ]
+    r2 = calculate_bill_ratio_by_species(d2)
+    assert abs(r2["gentoo"] - 3.0) < 1e-6
+
+   
+    d3 = [{"species":"adelie","bill_length_mm":40.0,"bill_depth_mm":0.0}]
+    r3 = calculate_bill_ratio_by_species(d3)
+    assert "adelie" not in r3
+
+  
+    d4 = [{"species":"adelie","bill_length_mm":None,"bill_depth_mm":20.0}]
+    r4 = calculate_bill_ratio_by_species(d4)
+    assert r4 == {}
+
+
